@@ -11,7 +11,6 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack{
-            
             AlertButton(Text("show alert").setButtonStyle(),
                         title: Text("title"),
                         message: Text("Message"),
