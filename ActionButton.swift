@@ -8,49 +8,6 @@
 
 import SwiftUI
 
-struct ActionDemo: View {
-    @State var pop = false
-    var body: some View {
-        VStack{
-            AlertButton(Text("show alert").setButtonStyle(), title: Text("title"), message: Text("Message"), buttons: [
-                        .cancel(Text("取消")),
-                        .destructive(Text("警告样式"))
-            ])
-            
-            ActionSheetButton(Text("show action").setButtonStyle(),
-                              title: Text("title"),
-                              message: Text("message"),
-                              buttons: [
-                                  .default(Text("默认样式"), action: {
-                                      print("default")
-                                  }),
-                                  .destructive(Text("警告样式"), action: {
-                                      print("destructive")
-                                  }),
-                                  .cancel(Text("关闭样式"), action: {
-                                      print("cancel")
-                                  })
-                              ])
-            
-            SheetButton(Text("show modalView").setButtonStyle()) {
-                Text("modalView")
-                    .bold()
-                    .font(.system(size: 50))
-            }
-            
-            Button(action: {
-                self.pop = true
-            }) {
-                Text("Pop").setButtonStyle()
-            }.popover(isPresented: $pop) {
-                Text("popView")
-                    .bold()
-                    .font(.system(size: 50))
-            }
-        }
-    }
-}
-
 struct AlertButton: View{
     let buttonLabel:Text
     let title: Text
@@ -121,33 +78,5 @@ struct SheetButton<Content>: View where Content : View{
         },label:{label})
         .sheet(isPresented: $isPresented,
                content: self.content)
-    }
-}
-
-extension Text{
-    func setButtonStyle()->Text{
-        self
-            .foregroundColor(.randomColor)
-            .bold()
-            .font(.system(size:50))
-    }
-}
-
-struct ModalView: View{
-    @Environment(\.presentationMode) var presentationMode
-    var body: some View {
-        Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Text("dissmiss")
-                .bold()
-                .font(.system(size: 50))
-        }
-    }
-}
-
-struct ActionDemo_Previews: PreviewProvider {
-    static var previews: some View {
-        ActionDemo()
     }
 }
